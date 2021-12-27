@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/ViteSetup/vite-vuetify-talwind-3/admin/sw.js', { scope: '/ViteSetup/vite-vuetify-talwind-3/admin/' })})}
