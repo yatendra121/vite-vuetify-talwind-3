@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import { createPinia } from 'pinia'
 import './assets/css/index.css'
+//import './sass'
 
 loadFonts()
 

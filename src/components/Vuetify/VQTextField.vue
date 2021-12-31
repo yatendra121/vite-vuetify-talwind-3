@@ -10,6 +10,7 @@
       :messages="errorMessage"
       :type="type"
       color="primary"
+      :clearable="!!isClearable"
       :label="label"
     >
       <template #progress>
@@ -20,9 +21,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useField } from 'vee-validate'
-import { boolean } from 'yup/lib/locale'
 export default defineComponent({
   name: 'VQTextField',
   props: {
@@ -45,16 +45,27 @@ export default defineComponent({
     loading: {
       type: Boolean,
       default: () => false
+    },
+    clearable: {
+      type: Boolean,
+      default: () => true
     }
   },
   setup(props) {
     const { errorMessage, value } = useField(props.name, null, {
-      validateOnValueUpdate: true
+      validateOnValueUpdate: false
+    })
+    console.log('value')
+    console.log(value.value)
+
+    const isClearable = computed(() => {
+      return value.value && props.clearable
     })
 
     return {
       errorMessage,
-      value
+      value,
+      isClearable
     }
   }
 })

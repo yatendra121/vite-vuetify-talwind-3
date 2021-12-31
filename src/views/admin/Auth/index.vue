@@ -28,6 +28,7 @@ import { defineComponent, reactive } from 'vue'
 import { Field, Form } from 'vee-validate'
 import * as yup from 'yup'
 import useAuthUserRepository from '@/composables/auth/useAuthUserRepository'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   components: {
     VqTextField,
@@ -36,26 +37,28 @@ export default defineComponent({
   },
   setup() {
     const schema = yup.object({
-      email: yup.string().required().max(50).label('Email'),
-      password: yup.string().required().max(30).label('Password')
+      //    email: yup.string().required().max(50).label('Email'),
+      //  password: yup.string().required().max(30).label('Password')
     })
 
     const initialValues = reactive({
       email: 'yatendra@singsys.com',
-      password: '123456789'
+      password: '12345678'
     })
 
     const { loginUser } = useAuthUserRepository()
 
+    const router = useRouter()
     const onSubmit = async (values, actions) => {
       const response = loginUser('login', values)
         .then((response) => {
-          alert('ok')
-          console.log(response)
+          router.push({
+            name: 'dashboard'
+          })
         })
         .catch((response) => {
-          alert('no')
-          console.log(response)
+          const data = JSON.parse(response.request.response)
+          actions.setErrors(data.errors)
         })
       //console.log({ response })
       // actions.setErrors({

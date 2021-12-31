@@ -10,7 +10,12 @@ module.exports = {
   overrides: [
     {
       files: ['*.vue', '*.js'],
-      extends: ['plugin:vue/vue3-recommended', 'plugin:import/warnings'],
+      extends: [
+        'plugin:vue/vue3-recommended',
+        '@vue/eslint-config-typescript',
+        'plugin:import/warnings',
+        '@vue/eslint-config-prettier'
+      ],
       rules: {
         'vue/no-unused-components': 'off',
         'vue/multi-word-component-names': 'off',

@@ -1,18 +1,13 @@
 <template>
-  <h1>7237472834</h1>
-  csavasvas
-
   <v-text-field
     :rounded="true"
-    variant="outlined"
     append-inner-icon="mdi-magnify"
     placeholder="Search"
     color="primary"
     clearable
     loading
-    label="Test"
+    label="Ok"
     persistent-clear
-    error-messages="dqwfqwufbuqbfuhb"
   />
 </template>
 <script lang="ts">

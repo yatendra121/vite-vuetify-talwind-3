@@ -13,17 +13,18 @@ export const AuthRoutes: Array<RouteRecordRaw> = [
             title: 'Login',
             heading: 'Login',
             isPublic: true,
+            type: 'auth',
             icon: 'login',
             permission: 'admin.login'
         }
     },
     {
-        path: 'reset-password',
+        path: '/reset-password',
         name: 'resetpassword',
         component: ResetPassword
     },
     {
-        path: 'verify',
+        path: '/verify',
         component: () =>
             import(
                 /* webpackChunkName: "about" */ '@/views/admin/Dashboard/index.vue'

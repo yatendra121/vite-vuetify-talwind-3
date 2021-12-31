@@ -1,6 +1,8 @@
 <template>
   <v-app :theme="theme" id="inspire">
-    <router-view :key="$route" v-show="!authLoading" />
+    <admin-app>
+      <router-view :key="$route" v-show="!authLoading" />
+    </admin-app>
   </v-app>
 </template>
 <script lang="ts">
@@ -9,7 +11,11 @@ import { useTitle } from '@vueuse/core'
 import { useStore } from 'vuex'
 import { AuthStatus } from '@/types/auth'
 import { useRouter, useRoute } from 'vue-router'
+import AdminApp from './adminApp.vue'
 export default defineComponent({
+  components: {
+    AdminApp
+  },
   props: {
     authLoading: {
       type: Boolean,
@@ -32,6 +38,7 @@ export default defineComponent({
     const redirectToAuth = () => {
       if (route.meta.type === 'not_found');
       else if (props.authStatus === 'authenticated') {
+        console.log(route.meta.type)
         router.push({ name: 'dashboard' })
       } else {
         router.push({ name: 'login' })

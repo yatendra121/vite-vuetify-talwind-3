@@ -32,6 +32,7 @@
 import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
+  setup() {},
   data() {
     return {
       selectedItem: null,
@@ -42,7 +43,6 @@ export default defineComponent({
       ],
       icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram']
     }
-  },
-  setup() {}
+  }
 })
 </script>

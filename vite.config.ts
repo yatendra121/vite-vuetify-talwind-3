@@ -28,6 +28,6 @@ export default defineConfig({
     },
     build: {
         outDir: currentPortal.getOutputDir(),
-        manifest: true
+        manifest: currentPortal.getAddPWA()
     }
 })

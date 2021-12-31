@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue-demi'
-import { toRefs } from '@vueuse/shared'
+import { ref, toRefs } from 'vue'
 import Scrubber from './Scrubber.vue'
 import { useDrauu } from '@vueuse/integrations'
 
@@ -9,7 +8,7 @@ const target = ref()
 const { undo, redo, canUndo, canRedo, clear, brush } = useDrauu(target, {
   brush: {
     color: 'black',
-    size: 3
+    size: 5
   }
 })
 
@@ -17,6 +16,7 @@ const { mode, color, size } = toRefs(brush)
 </script>
 
 <template>
+  {{ (undo, redo, canUndo, canRedo, clear, brush) }}
   <div flex="~ col" place="items-center">
     <div
       shadow="~ lg"
@@ -107,7 +107,13 @@ const { mode, color, size } = toRefs(brush)
             <mdi-light-shape-circle />
           </button>
         </div>
-        <svg ref="target" w="full" h="full" bg="white" />
+        <svg
+          ref="target"
+          w="full"
+          h="full"
+          bg="white"
+          style="width: 100%; height: 300px"
+        />
       </div>
     </div>
   </div>
@@ -115,44 +121,35 @@ const { mode, color, size } = toRefs(brush)
 
 <style lang="postcss">
 .drauu-demo .tool-button {
-  @apply rounded-full m-0 bg-transparent  border-none h-8 w-8 p-0 flex place-items-center place-content-center;
+  @apply rounded-full m-0 bg-transparent text-black border-none h-8 w-8 p-0 flex place-items-center place-content-center;
 }
-
-/* .dark .drauu-demo .tool-button {
-  @apply text-light-900;
-} */
-
+.dark .drauu-demo .tool-button {
+  @apply text-white;
+}
 .drauu-demo .tool-button:disabled {
-  @apply bg-transparent border-none;
+  @apply text-white bg-transparent border-none;
 }
-/* 
 .dark .drauu-demo .tool-button:disabled {
-  @apply text-dark-50;
-} */
-
+  @apply text-slate-700;
+}
 .drauu-demo .tool-button:hover {
   @apply text-green-900;
 }
-
 .drauu-demo .tool-button.active {
   @apply bg-green-500 text-green-900;
 }
-
 .drauu-demo .color-button {
-  @apply m-0 bg-transparent  rounded-full border-none h-8 w-8 p-0 flex place-items-center place-content-center;
+  @apply m-0 bg-transparent text-slate-700 rounded-full border-none h-8 w-8 p-0 flex place-items-center place-content-center;
 }
-
-/* .dark .drauu-demo .color-button {
-  @apply;
-} */
-/* 
+.dark .drauu-demo .color-button {
+  @apply text-red-900;
+}
 .drauu-demo .color-button:hover,
 .drauu-demo .color-button.active {
-  @apply bg-light-900;
-} */
-
-/* .dark .drauu-demo .color-button:hover,
+  @apply bg-slate-200;
+}
+.dark .drauu-demo .color-button:hover,
 .dark .drauu-demo .color-button.active {
-  @apply bg-dark-300;
-} */
+  @apply bg-slate-800;
+}
 </style>

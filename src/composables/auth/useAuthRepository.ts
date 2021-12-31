@@ -43,7 +43,6 @@ const removeTokens = () => {
 }
 
 const setToken = (token: String, path: String, domain: String) => {
-    console.log({ token, path, domain })
     return Cookies.set(TokenKey, token, {
         expires: 30,
         path: path

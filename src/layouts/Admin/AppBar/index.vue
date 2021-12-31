@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    height="77"
+    height="70"
     app
     :border="false"
     :elevation="1"
@@ -11,27 +11,30 @@
   >
     <v-app-bar-nav-icon @click="updateSidebar"></v-app-bar-nav-icon>
     <v-toolbar-title>Application</v-toolbar-title>
+    <v-btn flat color="" @click="logOutUser"> Logout </v-btn>
   </v-app-bar>
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useAppStore } from '@/store/reactivity/app'
+import useAuthUserRepository from '@/composables/auth/useAuthUserRepository'
 
 export default defineComponent({
   name: 'AppBar',
   setup() {
     const store = useAppStore()
 
-    console.log(store)
-
     const updateSidebar = async () => {
       store.changeSidebar()
     }
 
+    const { logOutUser } = useAuthUserRepository()
+
     return {
       store,
       sidebar: computed(() => store.sidebarValue),
-      updateSidebar
+      updateSidebar,
+      logOutUser
     }
   }
 })

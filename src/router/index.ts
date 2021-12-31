@@ -2,18 +2,13 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { useNProgress } from '@vueuse/integrations/useNProgress'
 import { AuthRoutes } from './auth'
 import { DashboardRoutes } from '@/views/admin/Dashboard/routes'
-import { DrawerRoutes } from '@/views/admin/Drawer/routes'
+//import { DrawerRoutes } from '@/views/admin/Drawer/routes'
+import { AdminRoutes } from '@/views/admin/Admin/routes'
+import Fullscreen from '@/views/admin/Fullscreen/routes'
+import EventBus from '@/views/admin/EventBus/routes'
 import { Portal } from '@/utils/portal'
 import { Meta } from '@/types/router'
 const currentPortal = new Portal()
-
-// Async Components
-const AdminLayout = () =>
-    import(
-        /* webpackChunkName: "admin-layout" */ '@/views/AdminLayout/index.vue'
-    )
-const AuthLayout = () =>
-    import(/* webpackChunkName: "auth-layout" */ '@/views/AuthLayout/index.vue')
 
 // Main routes
 const routes: Array<RouteRecordRaw> = [
@@ -21,16 +16,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         redirect: '/auth'
     },
-    {
-        path: '/auth',
-        children: AuthRoutes,
-        component: AuthLayout
-    },
-    {
-        path: '/',
-        component: AdminLayout,
-        children: [...DrawerRoutes, ...DashboardRoutes]
-    },
+    ...AuthRoutes,
+    //...DrawerRoutes,
+    ...DashboardRoutes,
+    ...AdminRoutes,
+    ...Fullscreen,
+    ...EventBus,
     {
         // To Handle undefined routes
         path: '/:catchAll(.*)',

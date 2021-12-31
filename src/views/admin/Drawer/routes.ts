@@ -12,6 +12,7 @@ export const DrawerRoutes: Array<RouteRecordRaw> = [
             heading: 'Drawer',
             isPublic: false,
             icon: 'login',
+            type: 'admin',
             permission: 'admin.drawer'
         } as Meta
     }

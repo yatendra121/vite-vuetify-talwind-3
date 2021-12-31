@@ -1,50 +1,71 @@
 <template>
-  <NavigationDrawer />
-  <AppBar />
-  <v-main>
-    <v-container fluid>
-      <v-fade-transition>
-        <router-view></router-view>
-      </v-fade-transition>
-    </v-container>
-    <Footer />
-  </v-main>
-  <!-- <div
-    v-if="authProfile"
-    class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4"
-  >
-    <div class="flex-shrink-0">
-      <img
-        class="h-12 w-12"
-        :src="authProfile.profile_image ? authProfile.profile_image.path : ''"
-        alt="ChitChat Logo"
-      />
-    </div>
-    <div>
-      <div class="text-xl font-medium text-black">{{ authProfile.name }}</div>
-      <p class="text-gray-500">{{ authProfile.email }}</p>
-    </div>
-  </div> -->
+  <component :is="currentView"><slot /></component>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from 'vuex'
-import AppBar from './Layout/AppBar.vue'
-import Footer from './Layout/Footer.vue'
-import NavigationDrawer from './Layout/NavigationDrawer.vue'
+import {
+  defineComponent,
+  computed,
+  defineAsyncComponent,
+  ref,
+  onMounted
+} from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+const AdminView = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "admin-layout" */ '@/layouts/Admin/ParentView.vue'
+    )
+)
+const AuthView = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "auth-layout" */ '@/layouts/Auth/ParentView.vue'
+    )
+)
+const NotFoundView = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "not-found-layout" */ '@/layouts/NotFound/ParentView.vue'
+    )
+)
+const DefaultView = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "default-layout" */ '@/layouts/NotFound/ParentView.vue'
+    )
+)
+
 export default defineComponent({
   components: {
-    AppBar,
-    Footer,
-    NavigationDrawer
+    AdminView,
+    AuthView,
+    NotFoundView,
+    DefaultView
   },
   setup() {
-    const store = useStore()
-    //console.log(store.getters.authProfile);
-    return {
-      // access a getter in computed function
-      authProfile: computed(() => store.getters.authProfile)
+    const ParentView = ref('DefaultView')
+
+    const route = useRoute()
+    const router = useRouter()
+
+    const changeLayoutView = (type) => {
+      if (type === 'auth') ParentView.value = 'AuthView'
+      else if (type === 'not_found') ParentView.value = 'NotFoundView'
+      else if (type === 'admin') ParentView.value = 'AdminView'
+      else ParentView.value = 'DefaultView'
     }
+    router.beforeResolve((to, from, next) => {
+      next()
+      changeLayoutView(to.meta?.type)
+    })
+
+    onMounted(() => {
+      changeLayoutView(route.meta?.type)
+    })
+
+    const currentView = computed(() => ParentView.value)
+
+    return { currentView, ParentView }
   }
 })
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <NavigationDrawer />
   <AppBar />
+  <Sidebar />
   <v-main>
     <v-container fluid>
-      <router-view></router-view>
+      <slot />
     </v-container>
     <Footer />
   </v-main>
@@ -27,16 +27,14 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
-import { store } from '@/store'
-//import { ActionTypes } from '@/store/modules/app'
-import AppBar from './AppBar.vue'
-import Footer from './Footer.vue'
-import NavigationDrawer from './NavigationDrawer.vue'
+import AppBar from './AppBar/index.vue'
+import Footer from './Footer/index.vue'
+import Sidebar from './Sidebar/index.vue'
 export default defineComponent({
   components: {
     AppBar,
     Footer,
-    NavigationDrawer
+    Sidebar
   },
   setup() {
     const store = useStore()
@@ -44,19 +42,6 @@ export default defineComponent({
     return {
       // access a getter in computed function
       authProfile: computed(() => store.getters.authProfile)
-    }
-  },
-  data() {
-    return {
-      model: 1,
-      drawer: false,
-      selectedItem: null,
-      items: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' }
-      ],
-      icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram']
     }
   }
 })
