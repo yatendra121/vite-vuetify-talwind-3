@@ -16,6 +16,23 @@ export enum ActionTypes {
     DELETE = 'DELETE'
 }
 
+export enum MutationType {
+    CHANGE = 'CHANGE',
+    UPDATE = 'UPDATE',
+    MIX = 'MIX',
+    DELETE = 'DELETE'
+}
+
+export type Mutations = {
+    [MutationType.CHANGE](state: State, data: UserProfile): void
+    [MutationType.UPDATE](state: State, data: UserProfile[]): void
+    [MutationType.MIX](
+        state: State,
+        data: Partial<UserProfile> & { id: number }
+    ): void
+    [MutationType.DELETE](state: State, data: null): void
+}
+
 type ActionAugments = Omit<ActionContext<State, State>, 'commit'> & {
     commit<K extends keyof Mutations>(
         key: K,
@@ -42,23 +59,6 @@ export const actions: ActionTree<State, State> & Actions = {
     async [ActionTypes.DELETE]({ commit }) {
         commit(MutationType.DELETE, null)
     }
-}
-
-export enum MutationType {
-    CHANGE = 'CHANGE',
-    UPDATE = 'UPDATE',
-    MIX = 'MIX',
-    DELETE = 'DELETE'
-}
-
-export type Mutations = {
-    [MutationType.CHANGE](state: State, data: UserProfile): void
-    [MutationType.UPDATE](state: State, data: UserProfile[]): void
-    [MutationType.MIX](
-        state: State,
-        data: Partial<UserProfile> & { id: number }
-    ): void
-    [MutationType.DELETE](state: State, data: null): void
 }
 
 export const mutations: MutationTree<State> & Mutations = {

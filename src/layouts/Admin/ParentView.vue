@@ -1,10 +1,14 @@
 <template>
-  <AppBar />
+  <AppBar :fullscreen="toggle" />
   <Sidebar />
   <v-main>
-    <v-container fluid>
-      <slot />
-    </v-container>
+    <v-layout :full-height="true">
+      <v-container fluid ref="el">
+        <!-- <v-fade-transition> -->
+        <slot />
+        <!-- </v-fade-transition> -->
+      </v-container>
+    </v-layout>
     <Footer />
   </v-main>
   <!-- <div
@@ -25,11 +29,12 @@
   </div> -->
 </template>
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import AppBar from './AppBar/index.vue'
 import Footer from './Footer/index.vue'
 import Sidebar from './Sidebar/index.vue'
+import { useFullscreen } from '@vueuse/core'
 export default defineComponent({
   components: {
     AppBar,
@@ -39,7 +44,13 @@ export default defineComponent({
   setup() {
     const store = useStore()
     //console.log(store.getters.authProfile);
+
+    const el = ref<HTMLElement | null>(null)
+    const { toggle } = useFullscreen(el)
+
     return {
+      toggle,
+      el,
       // access a getter in computed function
       authProfile: computed(() => store.getters.authProfile)
     }

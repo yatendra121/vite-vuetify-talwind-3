@@ -55,8 +55,6 @@ export default defineComponent({
     const { errorMessage, value } = useField(props.name, null, {
       validateOnValueUpdate: false
     })
-    console.log('value')
-    console.log(value.value)
 
     const isClearable = computed(() => {
       return value.value && props.clearable

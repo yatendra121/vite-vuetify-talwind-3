@@ -1,4 +1,3 @@
-import { InjectionKey } from 'vue'
 import {
     createStore,
     createLogger,
@@ -6,11 +5,9 @@ import {
     CommitOptions,
     DispatchOptions
 } from 'vuex'
-import profile from './modules/profile'
-import app from './modules/app'
-import { Mutations, Actions } from './modules/profile'
+import profile, { Mutations, Actions } from './profile'
 import { getters, Getters } from './getters'
-import { State, state } from '@/store/state'
+import { State } from '@/store/state'
 
 // store.ts
 export const store = createStore<State>({
@@ -18,13 +15,9 @@ export const store = createStore<State>({
     //state: state,
     // mutations: {},
     // actions: {},
-    modules: { profile, app },
+    modules: { profile },
     getters
 })
-
-export function useStore() {
-    return store as Store
-}
 
 export type Store = Omit<
     VuexStore<State>,
@@ -45,6 +38,10 @@ export type Store = Omit<
     getters: {
         [K in keyof Getters]: ReturnType<Getters[K]>
     }
+}
+
+export function useStore() {
+    return store as Store
 }
 
 export default store

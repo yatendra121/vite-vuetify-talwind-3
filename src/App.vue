@@ -16,6 +16,7 @@ const EntryComponent = defineAsyncComponent(
   () => import('./views/admin/index.vue')
 )
 </script>
+
 <template>
   <EntryComponent :auth-status="authStatus" :auth-loading="!finished" />
 </template>

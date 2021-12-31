@@ -11,7 +11,7 @@ module.exports = {
     {
       files: ['*.vue', '*.js'],
       extends: [
-        'plugin:vue/vue3-recommended',
+        'plugin:vue/vue3-strongly-recommended',
         '@vue/eslint-config-typescript',
         'plugin:import/warnings',
         '@vue/eslint-config-prettier'

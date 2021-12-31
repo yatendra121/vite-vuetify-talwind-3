@@ -1,18 +1,16 @@
 import { _axios, CancelToken } from '@/plugins/axios'
 import { ref } from 'vue'
-import store from '@/store'
+import store from '@/store/core'
 import router from '@/router'
 import { setTokens, removeTokens } from './useAuthRepository'
-import { ActionTypes } from '@/store/modules/profile'
+import { ActionTypes } from '@/store/core/profile'
 import { AxiosSuccessResponse, AxiosErrorResponse } from '@/types/response'
 import { UserProfile } from '@/types/auth'
 
 export default function useAuthUserRepository() {
     // eslint-disable-next-line no-unused-vars
     let cancel
-    const finished = ref<{
-        valueOf: () => Boolean
-    }>(false)
+    const finished = ref<boolean>(false)
     // const finished = ref<Boolean>(false);
 
     /**

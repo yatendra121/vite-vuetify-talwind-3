@@ -49,8 +49,8 @@ export default defineComponent({
     const { loginUser } = useAuthUserRepository()
 
     const router = useRouter()
-    const onSubmit = async (values, actions) => {
-      const response = loginUser('login', values)
+    const onSubmit = async (values: Array<string>, actions: any) => {
+      loginUser('login', values)
         .then((response) => {
           router.push({
             name: 'dashboard'
