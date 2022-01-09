@@ -7,6 +7,9 @@ import router from './router'
 import store from './store/core'
 import { createPinia } from 'pinia'
 import './assets/css/index.css'
+import Components from '@/components'
+import './plugins'
+import TitleLayout from '@/views/admin/TitleLayout.vue'
 //import './sass'
 
 loadFonts()
@@ -17,6 +20,9 @@ app.use(axios)
 app.use(store)
 app.use(createPinia())
 app.use(router)
+app.use(Components)
+
+app.component('title-layout', TitleLayout)
 
 app.mount('#app')
 

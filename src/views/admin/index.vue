@@ -2,9 +2,16 @@
   <v-app id="inspire" :theme="theme">
     <admin-app>
       <router-view v-show="!authLoading" :key="$route" v-slot="{ Component }">
-        <v-fab-transition>
-          <component :is="Component" />
-        </v-fab-transition>
+        <!-- <v-scroll-y-transition mode="out-in">
+          <keep-alive> -->
+        <suspense>
+          <template #default>
+            <component :is="Component" />
+          </template>
+          <template #fallback> Loading... </template>
+        </suspense>
+        <!-- </keep-alive>
+        </v-scroll-y-transition> -->
       </router-view>
     </admin-app>
   </v-app>
@@ -41,6 +48,7 @@ export default defineComponent({
     // Navigation redirection
     const route = useRoute()
     const router = useRouter()
+
     const redirectToAuth = () => {
       if (route.meta.type === 'not_found') {
         console.log('Not Found')

@@ -9,7 +9,7 @@
       :item="sidebarItem"
     />
   </v-list-group>
-  <v-list-item v-else :to="item.name" link :title="item.meta.title" />
+  <v-list-item v-else :to="{ name: item.name }" link :title="item.meta.title" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'

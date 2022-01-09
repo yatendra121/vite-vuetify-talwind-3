@@ -8,9 +8,9 @@ module.exports = {
     'apple-touch-icon.png'
   ],
   manifest: {
-    name: 'Vite Vuetify Talwind 3',
+    name: 'Vite Vuetify Tailwind 3',
     theme_color: 'white',
-    short_name: 'Vite Vuetify',
+    short_name: 'Vuetify 3',
     start_url: domainPrefix,
     display: 'standalone',
     background_color: '#ffffff',

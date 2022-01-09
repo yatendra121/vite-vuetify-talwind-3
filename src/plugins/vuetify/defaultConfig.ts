@@ -1,6 +1,11 @@
 export default {
     VBtn: {},
     VSheet: {
-        color: 'red'
+        color: ''
+    },
+    VTextField: {
+        density: 'compact',
+        variant: 'outlined',
+        color: 'primary'
     }
 }

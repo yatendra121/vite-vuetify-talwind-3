@@ -7,6 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import pwaConfig from './pwa.config'
 import { Portal } from './src/utils/portal'
 const { resolve } = require('path')
+//const srcPath = resolve(__dirname, 'src', 'styles', '_variables.scss')
 
 const currentPortal = new Portal()
 
@@ -22,6 +23,12 @@ export default defineConfig({
         }
     },
     plugins: [vue(), vueJsx(), vuetify({ autoImport: true }), ...plugins],
+    // css: {
+    //     preprocessorOptions: {
+    //         sass: { additionalData: `@import ${srcPath}\n` },
+    //         scss: { additionalData: `@import ${srcPath};\n` }
+    //     }
+    // },
     base: currentPortal.getDomianPrefix(),
     server: {
         port: currentPortal.getPort()

@@ -10,7 +10,7 @@ export type PortalConfig = {
     VUE_APP_CLIENT_ID?: string | undefined
     VUE_APP_CHECK_ESLINT?: string | undefined
     VUE_APP_ADD_PWA?: string | undefined
-    [key: string]: any
+    VUE_APP_SOCKET_URL?: string | undefined
 }
 
 /**
@@ -125,5 +125,13 @@ export class Portal {
      */
     public getAddPWA = (): boolean => {
         return this.portalConfig.VUE_APP_ADD_PWA !== 'false'
+    }
+
+    /**
+     * Get the check eslint.
+     * @returns string
+     */
+    public getSocketUrl = (): string => {
+        return this.portalConfig.VUE_APP_SOCKET_URL ?? ''
     }
 }

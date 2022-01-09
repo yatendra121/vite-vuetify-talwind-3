@@ -2,9 +2,12 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { useNProgress } from '@vueuse/integrations/useNProgress'
 import { AuthRoutes } from './auth'
 import { DashboardRoutes } from '@/views/admin/Dashboard/routes'
-//import { DrawerRoutes } from '@/views/admin/Drawer/routes'
+import { DrawerRoutes } from '@/views/admin/Drawer/routes'
 import { AdminRoutes } from '@/views/admin/Admin/routes'
+import { StaticPageRoutes } from '@/views/admin/StaticPage/routes'
+
 import Fullscreen from '@/views/admin/Fullscreen/routes'
+import MyProfile from '@/views/admin/MyProfile/routes'
 import EventBus from '@/views/admin/EventBus/routes'
 import { Portal } from '@/utils/portal'
 import { Meta } from '@/types/router'
@@ -17,10 +20,12 @@ const routes: Array<RouteRecordRaw> = [
         redirect: '/auth'
     },
     ...AuthRoutes,
-    //...DrawerRoutes,
+    ...DrawerRoutes,
     ...DashboardRoutes,
     ...AdminRoutes,
+    ...StaticPageRoutes,
     ...Fullscreen,
+    ...MyProfile,
     ...EventBus,
     {
         // To Handle undefined routes

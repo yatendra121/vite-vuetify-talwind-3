@@ -1,155 +1,29 @@
-<script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import Scrubber from './Scrubber.vue'
+<script setup>
+import { ref } from 'vue'
+import { toRefs } from '@vueuse/core'
 import { useDrauu } from '@vueuse/integrations'
+import Scrubber from './Scrubber.vue'
 
-const colors = ref(['black', '#ef4444', '#22c55e', '#3b82f6'])
 const target = ref()
-const { undo, redo, canUndo, canRedo, clear, brush } = useDrauu(target, {
-  brush: {
-    color: 'black',
-    size: 5
-  }
-})
-
-const { mode, color, size } = toRefs(brush)
+const { undo, redo, canUndo, canRedo, brush } = useDrauu(target)
+const { color, size } = toRefs(brush)
 </script>
 
 <template>
-  {{ (undo, redo, canUndo, canRedo, clear, brush) }}
-  <div flex="~ col" place="items-center">
-    <div
-      shadow="~ lg"
-      class="drauu-demo"
-      border="rounded"
-      overflow="hidden"
-      max-w="screen-lg"
-      h="[60vh]"
-      w="full"
-      flex="~ col"
-    >
-      <div
-        bg="$c-bg"
-        border="b-1 $c-divider"
-        flex="~ row"
-        items="center"
-        p="2"
-        space="x-4"
-      >
-        <div flex="~ row 1">
-          <button
-            v-for="_color in colors"
-            :key="_color"
-            :class="{ active: _color === color }"
-            class="color-button"
-            m="r-1"
-            @click="() => (color = _color)"
-          >
-            <div
-              :style="{ background: _color }"
-              w="6"
-              h="6"
-              border="2 dark:(light-900 opacity-50) rounded-full"
-            />
-          </button>
-        </div>
-        <div flex="~ row 1 shrink-1" items="center" w="full" max-w="64">
-          <carbon-paint-brush m="r-2" />
-          <Scrubber v-model="size" w="full" :min="1" :max="10" />
-        </div>
-        <div flex="~ row 1" justify="end">
-          <button class="tool-button" :disabled="!canUndo" @click="undo()">
-            <carbon-undo />
-          </button>
-          <button class="tool-button" :disabled="!canRedo" @click="redo()">
-            <carbon-redo />
-          </button>
-          <button class="tool-button" @click="clear()">
-            <carbon-clean />
-          </button>
-        </div>
-      </div>
-      <div flex="~ row 1" h="72">
-        <div
-          bg="$c-bg"
-          border="r-1"
-          flex="~ col"
-          space="y-2"
-          place="items-center"
-          p="2"
+  <v-container>
+    <v-row class="flex-child">
+      <v-col class="d-flex" cols="12" md="12">
+        <v-sheet
+          :rounded="true"
+          :elevation="10"
+          class="mx-auto"
+          min-width="900"
+          min-height="350"
         >
-          <button
-            :class="{ active: brush.mode === 'draw' }"
-            class="tool-button"
-            @click="mode = 'draw'"
-          >
-            <carbon-pen />
-          </button>
-          <button
-            :class="{ active: brush.mode === 'line' && !brush.arrowEnd }"
-            class="tool-button"
-            @click="mode = 'line'"
-          >
-            <mdi-slash-forward />
-          </button>
-          <button
-            :class="{ active: brush.mode === 'rectangle' }"
-            class="tool-button"
-            @click="mode = 'rectangle'"
-          >
-            <carbon-checkbox />
-          </button>
-          <button
-            :class="{ active: brush.mode === 'ellipse' }"
-            class="tool-button"
-            @click="mode = 'ellipse'"
-          >
-            <mdi-light-shape-circle />
-          </button>
-        </div>
-        <svg
-          ref="target"
-          w="full"
-          h="full"
-          bg="white"
-          style="width: 100%; height: 300px"
-        />
-      </div>
-    </div>
-  </div>
+          <Scrubber v-model="size" w="full" :min="1" :max="10" />
+          <svg style="height: 100%; width: 100%" ref="target"></svg>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-
-<style lang="postcss">
-.drauu-demo .tool-button {
-  @apply rounded-full m-0 bg-transparent text-black border-none h-8 w-8 p-0 flex place-items-center place-content-center;
-}
-.dark .drauu-demo .tool-button {
-  @apply text-white;
-}
-.drauu-demo .tool-button:disabled {
-  @apply text-white bg-transparent border-none;
-}
-.dark .drauu-demo .tool-button:disabled {
-  @apply text-slate-700;
-}
-.drauu-demo .tool-button:hover {
-  @apply text-green-900;
-}
-.drauu-demo .tool-button.active {
-  @apply bg-green-500 text-green-900;
-}
-.drauu-demo .color-button {
-  @apply m-0 bg-transparent text-slate-700 rounded-full border-none h-8 w-8 p-0 flex place-items-center place-content-center;
-}
-.dark .drauu-demo .color-button {
-  @apply text-red-900;
-}
-.drauu-demo .color-button:hover,
-.drauu-demo .color-button.active {
-  @apply bg-slate-200;
-}
-.dark .drauu-demo .color-button:hover,
-.dark .drauu-demo .color-button.active {
-  @apply bg-slate-800;
-}
-</style>

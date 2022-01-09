@@ -1,25 +1,38 @@
 <template>
-  <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-    <v-img
-      height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
-    <Form
-      v-slot="{}"
-      :initial-values="initialValues"
-      :validation-schema="schema"
-      @submit="onSubmit"
-    >
-      <vq-text-field
-        :loading="loading"
-        name="email"
-        label="Email"
-        placeholder="Email"
-      />
-      <vq-text-field name="password" label="Password" placeholder="Password" />
-      <v-btn color="primary" type="submit">Submit</v-btn>
-    </Form>
-  </v-card>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12">
+        <v-responsive>
+          <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+            <v-img
+              height="250"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            ></v-img>
+            <Form
+              v-slot="{ values }"
+              :initial-values="initialValues"
+              :validation-schema="schema"
+              @submit="onSubmit"
+            >
+              {{ values }}
+              <vq-text-field
+                :loading="loading"
+                name="email"
+                label="Email"
+                placeholder="Email"
+              />
+              <vq-text-field
+                name="password"
+                label="Password"
+                placeholder="Password"
+              />
+              <v-btn color="primary" type="submit">Submit</v-btn>
+            </Form>
+          </v-card>
+        </v-responsive></v-col
+      ></v-row
+    ></v-container
+  >
 </template>
 
 <script lang="ts">
@@ -37,8 +50,8 @@ export default defineComponent({
   },
   setup() {
     const schema = yup.object({
-      //    email: yup.string().required().max(50).label('Email'),
-      //  password: yup.string().required().max(30).label('Password')
+      email: yup.string().required().max(50).label('Email'),
+      password: yup.string().required().max(30).label('Password')
     })
 
     const initialValues = reactive({

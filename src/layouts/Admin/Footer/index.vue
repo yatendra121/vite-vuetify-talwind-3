@@ -1,5 +1,12 @@
 <template>
-  <v-footer app :border="4" dark elevation="3" :absolute="false">
+  <v-footer
+    app
+    :border="4"
+    dark
+    elevation="3"
+    :absolute="true"
+    style="position: relative"
+  >
     <v-card flat tile class="indigo lighten-1 white--text text-center">
       <v-card-text>
         <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
@@ -29,7 +36,7 @@
   </v-footer>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {},

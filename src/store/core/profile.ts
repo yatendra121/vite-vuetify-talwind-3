@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: "off"*/
 import { ActionContext, ActionTree, MutationTree } from 'vuex'
 import { UserProfile } from '@/types/auth'
 
@@ -81,6 +82,7 @@ export default {
     mutations,
     actions
 }
+// eslint-disable-next-line no-unused-vars
 function data(CHANGE: MutationType, data: any) {
     throw new Error('Function not implemented.')
 }

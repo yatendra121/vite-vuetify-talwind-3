@@ -1,16 +1,19 @@
 <template>
   <AppBar :fullscreen="toggle" />
-  <Sidebar />
+
   <v-main>
     <v-layout :full-height="true">
       <v-container fluid ref="el">
-        <!-- <v-fade-transition> -->
+        <!-- <v-scroll-x-transition mode="out-in"> -->
         <slot />
-        <!-- </v-fade-transition> -->
+        <!-- </v-scroll-x-transition> -->
       </v-container>
     </v-layout>
     <Footer />
   </v-main>
+
+  <Sidebar />
+
   <!-- <div
     v-if="authProfile"
     class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4"

@@ -2,14 +2,14 @@
   <v-container fluid>
     <v-text-field
       v-model="value"
+      prepend-inner-icon=""
       :loading="loading"
       :rounded="true"
-      variant="outlined"
+      flat
+      :error="!!errorMessage"
       :error-messages="errorMessage"
-      :error="errorMessage"
       :messages="errorMessage"
       :type="type"
-      color="primary"
       :clearable="!!isClearable"
       :label="label"
     >
@@ -17,6 +17,7 @@
         <v-progress-linear absolute height="7"></v-progress-linear>
       </template>
     </v-text-field>
+    {{ errorMessage }}
   </v-container>
 </template>
 
@@ -53,7 +54,7 @@ export default defineComponent({
   },
   setup(props) {
     const { errorMessage, value } = useField(props.name, null, {
-      validateOnValueUpdate: false
+      validateOnUpdate: false
     })
 
     const isClearable = computed(() => {
